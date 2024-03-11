@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #Container{
+            /* display: flex;
+            flex-direction: column; */
+            width: 15%;
+            height:15%;
+            border: 1px solid red;
+        }
+
+        #display{
+            height: 20px;
+        }
+
+        #numbers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:space-between;
+        }
+
+        #numbers > button{
+            height: 60px;
+            width: 60px;
+        } 
+
+        #operator{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:space-between;
+        }
+
+        #operator > button{
+            height: 50px;
+            width: 50px;
+        }
+
+        #EqualTo{
+            height: 30px;
+            width: 100%;
+        }
+
+        #Clear{
+            height: 30px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="Container">
+        <h1 id="display"></h1>
+        <div id="numbers">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>0</button>
+        </div>
+        <div id="operator">
+            <button>+</button>
+            <button>-</button>
+            <button>*</button>
+            <button>/</button>
+            <button>%</button>
+        </div>
+        <button id="EqualTo">=</button>
+        <button id="Clear">CLR</button>
+    </div>
+</body>
+</html>
+<script>
+    let head = document.getElementById("display");
+    let number = document.querySelectorAll("#numbers > button");
+    let operators = document.querySelectorAll("#operator > button")
+    let Equal = document.getElementById("EqualTo")
+    let ClearDisplay = document.getElementById("Clear")
+    let FirstNumber = "";
+    let SecondNumber = "";
+    let operator = "";
+    let Check = false;
+
+    for(let i=0; i<number.length; i++){
+        number[i].addEventListener('click',function(){
+            if(Check === false){
+                FirstNumber += number[i].innerText
+                head.innerText = FirstNumber
+            }
+            else{
+                SecondNumber += number[i].innerText
+                head.innerText = SecondNumber
+            }
+        })
+    }
+
+    for(let i=0; i<operators.length; i++){
+        operators[i].addEventListener('click',function(){
+            operator = operators[i].innerText;
+            Check = true;
+        })
+    }
+
+
+    Equal.addEventListener('click',function(){
+        switch(FirstNumber,SecondNumber,operator){
+            case "+":
+                head.innerText = Number(FirstNumber)+Number(SecondNumber)
+                break;
+            case "-":   
+                head.innerText = Number(FirstNumber)-Number(SecondNumber)
+                break; 
+            case "*":
+                head.innerText = Number(FirstNumber)*Number(SecondNumber)
+                break; 
+            case "/":
+                head.innerText = Number(FirstNumber)/Number(SecondNumber)
+                break;  
+            case "%":
+                head.innerText = Number(FirstNumber)%Number(SecondNumber)
+                break;
+            default:
+                head.innerText = Error;
+                break;
+
+        }
+    })
+
+    ClearDisplay.addEventListener('click',function(){
+        head.innerText="";
+        FirstNumber="";
+        SecondNumber = "";
+        Check = false
+    })
+
+
+</script>
